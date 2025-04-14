@@ -280,7 +280,6 @@ def extract_full_feature_set(url):
             "f78_empty_title": 0,
             "f79_domain_in_title": 0,
             "f80_domain_in_copyright": 0,
-            "error": str(e)
         }
 
 def extract_external_features(url, openpagerank_api_key=api_key):
@@ -362,7 +361,7 @@ except Exception as e:
     logging.error(f"Failed to open {blacklist_path}: {e}")
     black_list = []
 
-for idx, i in enumerate(black_list[:20000]):
+for idx, i in enumerate(black_list[:1000]):
     url = i.strip()
     try:
         urlfeat = extract_url_features(url)
@@ -376,30 +375,6 @@ for idx, i in enumerate(black_list[:20000]):
     except Exception as e:
         logging.error(f"Error processing blacklist URL {url}: {e}")
 logging.info("Finished processing blacklist.")
-
-# Process Whitelist URLs
-whitelist_path = os.path.join("PhishingLink", "Whitelist.txt")
-try:
-    with open(whitelist_path, "r") as white:
-        white_list = white.readlines()
-except Exception as e:
-    logging.error(f"Failed to open {whitelist_path}: {e}")
-    white_list = []
-
-for idx, i in enumerate(white_list[:20000]):
-    url = i.strip()
-    try:
-        urlfeat = extract_url_features(url)
-        Htmlfeat = extract_full_feature_set(url)
-        Exfeat = extract_external_features(url)
-        result = {"isPhishing": False}
-        combined = {**urlfeat, **Htmlfeat, **Exfeat, **result}
-        totalfeat.append(combined)
-        if idx % 5 == 0:
-            logging.info(f"[+] Processed whitelist URL {idx}")
-    except Exception as e:
-        logging.error(f"Error processing whitelist URL {url}: {e}")
-logging.info("Finished processing whitelist.")
 
 # Write results to CSV
 csv_path = os.path.join("PhishingLink", "FeaturesColumn.csv")
