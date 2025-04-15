@@ -10,6 +10,7 @@ import os
 from dotenv import load_dotenv
 import csv
 import logging
+import random
 
 # Load environment variables
 load_dotenv()
@@ -362,6 +363,8 @@ try:
 except Exception as e:
     logging.error(f"Failed to open {whitelist_path}: {e}")
     white_list = []
+
+random.shuffle(white_list) 
 
 for idx, i in enumerate(white_list[:2000]):
     url = i.strip()
