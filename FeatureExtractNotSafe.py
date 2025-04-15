@@ -251,6 +251,7 @@ def extract_full_feature_set(url):
             "f78_empty_title": empty_title,
             "f79_domain_in_title": has_domain_in_title,
             "f80_domain_in_copyright": domain_in_copyright,
+            "error": False
         }
     except Exception as e:
         logging.error(f"Error processing full features for {url}: {e}")
@@ -280,6 +281,7 @@ def extract_full_feature_set(url):
             "f78_empty_title": 0,
             "f79_domain_in_title": 0,
             "f80_domain_in_copyright": 0,
+            "error": True
         }
 
 def extract_external_features(url, openpagerank_api_key=api_key):
