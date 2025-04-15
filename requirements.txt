@@ -4,3 +4,7 @@ tldextract
 python-whois
 python-dotenv
 pandas
+fastapi
+uvicorn[standard]
+celery[redis]
+redis
